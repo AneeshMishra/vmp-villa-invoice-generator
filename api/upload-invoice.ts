@@ -28,10 +28,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const filename = `invoice-${timestamp}.pdf`;
 
-    // Upload to Vercel Blob
+    // Upload to Vercel Blob with custom token
     const blob = await put(filename, buffer, {
       access: 'public',
       contentType: 'application/pdf',
+      token: process.env.VMPVILLA_GST_INVOICE_READ_WRITE_TOKEN,
     });
 
     return res.status(200).json({

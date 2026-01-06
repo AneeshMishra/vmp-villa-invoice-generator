@@ -7,8 +7,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    // List all blobs (invoices)
-    const { blobs } = await list();
+    // List all blobs (invoices) with custom token
+    const { blobs } = await list({
+      token: process.env.VMPVILLA_GST_INVOICE_READ_WRITE_TOKEN,
+    });
 
     // Filter only PDF files and sort by upload time (newest first)
     const invoices = blobs
