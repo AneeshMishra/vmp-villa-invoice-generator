@@ -7,10 +7,9 @@ import { InvoicePDFGenerator } from './PDFExport';
 
 interface InvoiceGeneratorProps {
   initialData?: Partial<InvoiceData>;
-  onSave?: (invoice: InvoiceData) => void;
 }
 
-export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData, onSave }) => {
+export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData }) => {
   const invoiceRef = useRef<HTMLDivElement>(null);
 
   const [invoiceData, setInvoiceData] = useState<InvoiceData>({

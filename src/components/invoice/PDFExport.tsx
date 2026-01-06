@@ -261,7 +261,6 @@ export class InvoicePDFGenerator {
 
     // Items Table
     yPosition = Math.max(yPosition, rightY) + 10;
-    const tableStartY = yPosition;
 
     // Table header
     pdf.setFillColor(240, 240, 240);
