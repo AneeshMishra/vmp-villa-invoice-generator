@@ -1,5 +1,6 @@
 import React from 'react';
 import { InvoiceGenerator } from '../components/invoice/InvoiceGenerator';
+import { SavedInvoices } from '../components/invoice/SavedInvoices';
 
 export const InvoicePage: React.FC = () => {
   return (
@@ -15,6 +16,10 @@ export const InvoicePage: React.FC = () => {
         </div>
 
         <InvoiceGenerator />
+
+        <div className="mt-8">
+          <SavedInvoices />
+        </div>
       </div>
     </div>
   );

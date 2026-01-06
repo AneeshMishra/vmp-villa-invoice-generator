@@ -61,7 +61,7 @@ export class InvoicePDFGenerator {
   static generateProgrammatically(
     invoiceData: InvoiceData,
     options: PDFExportOptions = {}
-  ): jsPDF {
+  ): jsPDF | Blob {
     const { filename = `Invoice-${invoiceData.invoiceNo}.pdf`, download = true } = options;
 
     const pdf = new jsPDF({
@@ -454,9 +454,11 @@ export class InvoicePDFGenerator {
 
     if (download) {
       pdf.save(filename);
+      return pdf;
     }
 
-    return pdf;
+    // Return as Blob for upload
+    return pdf.output('blob');
   }
 
   // Print invoice

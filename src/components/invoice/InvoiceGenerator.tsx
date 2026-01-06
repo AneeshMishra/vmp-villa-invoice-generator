@@ -4,6 +4,7 @@ import { VMPLogo } from '@components/common/VMPLogo';
 import { numberToWords, calculateGST } from '../../utils/numberToWords';
 import { format } from 'date-fns';
 import { InvoicePDFGenerator } from './PDFExport';
+import { uploadInvoice } from '../../services/invoiceStorage';
 
 interface InvoiceGeneratorProps {
   initialData?: Partial<InvoiceData>;
@@ -11,6 +12,9 @@ interface InvoiceGeneratorProps {
 
 export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData }) => {
   const invoiceRef = useRef<HTMLDivElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [uploadedUrl, setUploadedUrl] = useState<string>('');
 
   const [invoiceData, setInvoiceData] = useState<InvoiceData>({
     invoiceNo: initialData?.invoiceNo || generateInvoiceNumber(),
@@ -198,6 +202,41 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
     } catch (error) {
       console.error('Error printing:', error);
       alert('Failed to print. Please try again.');
+    }
+  };
+
+  const handleSaveToCloud = async () => {
+    setUploading(true);
+    setUploadSuccess(false);
+    setUploadedUrl('');
+
+    try {
+      // Generate PDF blob using the programmatic method
+      const pdfResult = InvoicePDFGenerator.generateProgrammatically(invoiceData, {
+        filename: `Invoice-${invoiceData.invoiceNo}.pdf`,
+        download: false,
+      });
+
+      // Since download is false, it should return a Blob
+      if (!(pdfResult instanceof Blob)) {
+        throw new Error('Failed to generate PDF blob');
+      }
+
+      // Upload to Vercel Blob Storage
+      const result = await uploadInvoice(pdfResult, `Invoice-${invoiceData.invoiceNo}.pdf`);
+
+      if (result.success && result.url) {
+        setUploadSuccess(true);
+        setUploadedUrl(result.url);
+        alert('Invoice saved to cloud successfully!');
+      } else {
+        throw new Error(result.error || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Error saving to cloud:', error);
+      alert('Failed to save invoice to cloud. Please try again.');
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -533,7 +572,55 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
                   </svg>
                   <span className="truncate">Print</span>
                 </button>
+
+                <button
+                  onClick={handleSaveToCloud}
+                  disabled={uploading}
+                  className={`${
+                    uploadSuccess ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-orange-600 hover:bg-orange-700'
+                  } text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg transition-colors font-medium flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed`}
+                >
+                  {uploading ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      <span className="truncate">Saving...</span>
+                    </>
+                  ) : uploadSuccess ? (
+                    <>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="truncate">Saved to Cloud!</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <span className="truncate">Save to Cloud</span>
+                    </>
+                  )}
+                </button>
               </div>
+
+              {uploadSuccess && uploadedUrl && (
+                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="text-sm text-green-800 break-words">
+                    <span className="font-semibold">Invoice saved!</span> Your invoice is now stored in the cloud.
+                  </p>
+                  <a
+                    href={uploadedUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-green-600 hover:text-green-800 underline break-all"
+                  >
+                    View saved invoice
+                  </a>
+                </div>
+              )}
             </div>
           )}
         </div>
