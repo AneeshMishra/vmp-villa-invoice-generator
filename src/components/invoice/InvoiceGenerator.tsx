@@ -468,18 +468,18 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
 
           {/* Export Buttons */}
           {invoiceData.items.length > 0 && (
-            <div className="mt-6 bg-white rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Export Options</h3>
-              <p className="text-gray-600 mb-4">
+            <div className="mt-4 sm:mt-6 bg-white rounded-lg shadow-lg p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">Export Options</h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
                 Choose how you want to export your invoice:
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4">
                 <button
                   onClick={handleDownloadPDF}
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center gap-2"
+                  className="bg-green-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-green-700 transition-colors font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -491,15 +491,15 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
                       d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                     />
                   </svg>
-                  Download PDF (High Quality)
+                  <span className="truncate">Download PDF (High Quality)</span>
                 </button>
 
                 <button
                   onClick={handleDownloadProgrammatic}
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2"
+                  className="bg-blue-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -511,15 +511,15 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
                       d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                     />
                   </svg>
-                  Download PDF (Fast)
+                  <span className="truncate">Download PDF (Fast)</span>
                 </button>
 
                 <button
                   onClick={handlePrint}
-                  className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium flex items-center gap-2"
+                  className="bg-purple-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors font-medium flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -531,7 +531,7 @@ export const InvoiceGenerator: React.FC<InvoiceGeneratorProps> = ({ initialData 
                       d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
                     />
                   </svg>
-                  Print
+                  <span className="truncate">Print</span>
                 </button>
               </div>
             </div>
@@ -552,16 +552,16 @@ interface InvoicePreviewProps {
 const InvoicePreview = React.forwardRef<HTMLDivElement, InvoicePreviewProps>(
   ({ invoiceData, removeItem, isInterstate }, ref) => {
     return (
-      <div className="bg-white rounded-lg shadow-lg p-8" ref={ref}>
+      <div className="bg-white rounded-lg shadow-lg p-2 sm:p-4 md:p-8 overflow-x-auto" ref={ref}>
         {/* Header with Logo and Company Details */}
-        <div className="border-4 border-gray-800">
-          <div className="flex justify-between items-start p-6 border-b-2 border-gray-800">
+        <div className="border-2 sm:border-4 border-gray-800">
+          <div className="flex flex-col sm:flex-row justify-between items-start p-3 sm:p-4 md:p-6 border-b-2 border-gray-800 gap-4">
             {/* Company Details */}
-            <div className="flex-1">
-              <h1 className="text-xl font-bold mb-2">{VMP_VILLA_DETAILS.name}</h1>
-              <div className="text-sm space-y-1">
-                <p><span className="font-semibold">Address:</span> {VMP_VILLA_DETAILS.address}</p>
-                <p><span className="font-semibold">Phone No:</span> {VMP_VILLA_DETAILS.phone}</p>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-base sm:text-lg md:text-xl font-bold mb-2 break-words">{VMP_VILLA_DETAILS.name}</h1>
+              <div className="text-xs sm:text-sm space-y-1">
+                <p className="break-words"><span className="font-semibold">Address:</span> {VMP_VILLA_DETAILS.address}</p>
+                <p className="break-words"><span className="font-semibold">Phone No:</span> {VMP_VILLA_DETAILS.phone}</p>
                 <p><span className="font-semibold">Email ID:</span> {VMP_VILLA_DETAILS.email}</p>
                 <p><span className="font-semibold">GSTIN:</span> {VMP_VILLA_DETAILS.gstin}</p>
                 <p><span className="font-semibold">State:</span> {VMP_VILLA_DETAILS.state}</p>
@@ -569,59 +569,60 @@ const InvoicePreview = React.forwardRef<HTMLDivElement, InvoicePreviewProps>(
             </div>
 
             {/* Logo */}
-            <div className="ml-4">
-              <VMPLogo size="medium" />
+            <div className="flex-shrink-0">
+              <VMPLogo size="small" className="sm:hidden" />
+              <VMPLogo size="medium" className="hidden sm:block" />
             </div>
           </div>
 
           {/* Tax Invoice Title */}
-          <div className="bg-pink-50 py-4 text-center border-b-2 border-gray-800">
-            <h2 className="text-3xl font-bold text-pink-600">Tax Invoice</h2>
+          <div className="bg-pink-50 py-3 sm:py-4 text-center border-b-2 border-gray-800">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-pink-600">Tax Invoice</h2>
           </div>
 
           {/* Customer and Invoice Details */}
-          <div className="p-6 border-b-2 border-gray-800">
-            <div className="flex justify-between">
+          <div className="p-3 sm:p-4 md:p-6 border-b-2 border-gray-800">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
               {/* Customer Details */}
-              <div className="flex-1">
-                <p className="mb-2">
+              <div className="flex-1 min-w-0">
+                <p className="mb-2 text-xs sm:text-sm break-words">
                   <span className="font-semibold">Bill To:</span> {invoiceData.customer.companyName || invoiceData.customer.name}
                 </p>
                 {invoiceData.customer.companyName && (
-                  <p className="mb-2"><span className="font-semibold">Name:</span> {invoiceData.customer.name}</p>
+                  <p className="mb-2 text-xs sm:text-sm break-words"><span className="font-semibold">Name:</span> {invoiceData.customer.name}</p>
                 )}
-                <p className="text-sm mb-2">
+                <p className="text-xs sm:text-sm mb-2 break-words">
                   <span className="font-semibold">Address:</span> {invoiceData.customer.address}
                   {invoiceData.customer.city && `, ${invoiceData.customer.city}`}
                   {invoiceData.customer.state && `, ${invoiceData.customer.state}`}
                   {invoiceData.customer.pincode && `, ${invoiceData.customer.pincode}`}
                 </p>
-                <p className="text-sm mb-1">
+                <p className="text-xs sm:text-sm mb-1 break-words">
                   <span className="font-semibold">Contact No.:</span> {invoiceData.customer.contactNo}
                 </p>
                 {invoiceData.customer.gstin && (
-                  <p className="text-sm mb-1">
+                  <p className="text-xs sm:text-sm mb-1 break-words">
                     <span className="font-semibold">GSTIN No.:</span> {invoiceData.customer.gstin}
                   </p>
                 )}
                 {invoiceData.customer.state && (
-                  <p className="text-sm">
+                  <p className="text-xs sm:text-sm break-words">
                     <span className="font-semibold">State:</span> {invoiceData.customer.state}
                   </p>
                 )}
               </div>
 
               {/* Invoice Info */}
-              <div className="text-right">
-                <p className="mb-2 text-sm">
+              <div className="text-left md:text-right min-w-0">
+                <p className="mb-2 text-xs sm:text-sm break-words">
                   <span className="font-semibold">Check-in Time:</span>{' '}
                   {format(invoiceData.checkInTime, 'dd/MM/yyyy hh:mm a')}
                 </p>
-                <p className="mb-2 text-sm">
+                <p className="mb-2 text-xs sm:text-sm break-words">
                   <span className="font-semibold">Check-out Time:</span>{' '}
                   {format(invoiceData.checkOutTime, 'dd/MM/yyyy hh:mm a')}
                 </p>
-                <p className="mb-1">
+                <p className="mb-1 text-xs sm:text-sm break-words">
                   <span className="font-semibold">Invoice No.:</span> {invoiceData.invoiceNo}
                 </p>
                 <p>
@@ -633,47 +634,47 @@ const InvoicePreview = React.forwardRef<HTMLDivElement, InvoicePreviewProps>(
           </div>
 
           {/* Items Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="overflow-x-auto -mx-2 sm:mx-0">
+            <table className="w-full min-w-[640px]">
               <thead>
                 <tr className="bg-gray-100 border-b-2 border-gray-800">
-                  <th className="px-4 py-3 text-left font-semibold border-r border-gray-300">#</th>
-                  <th className="px-4 py-3 text-left font-semibold border-r border-gray-300">Item name</th>
-                  <th className="px-4 py-3 text-left font-semibold border-r border-gray-300">HSN Code</th>
-                  <th className="px-4 py-3 text-center font-semibold border-r border-gray-300">Qty.</th>
-                  <th className="px-4 py-3 text-right font-semibold border-r border-gray-300">Price/Unit</th>
-                  <th className="px-4 py-3 text-center font-semibold border-r border-gray-300">GST</th>
-                  <th className="px-4 py-3 text-right font-semibold border-r border-gray-300">Amount</th>
-                  <th className="px-4 py-3 text-center font-semibold">Action</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-semibold border-r border-gray-300">#</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-semibold border-r border-gray-300">Item name</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-semibold border-r border-gray-300">HSN Code</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold border-r border-gray-300">Qty.</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm font-semibold border-r border-gray-300">Price/Unit</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold border-r border-gray-300">GST</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-right text-xs sm:text-sm font-semibold border-r border-gray-300">Amount</th>
+                  <th className="px-2 sm:px-4 py-2 sm:py-3 text-center text-xs sm:text-sm font-semibold">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {invoiceData.items.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="px-4 py-8 text-center text-gray-500">
+                    <td colSpan={8} className="px-2 sm:px-4 py-6 sm:py-8 text-center text-xs sm:text-sm text-gray-500">
                       No items added yet. Add items using the form on the left.
                     </td>
                   </tr>
                 ) : (
                   invoiceData.items.map((item, index) => (
                     <tr key={item.id} className="border-b border-gray-200">
-                      <td className="px-4 py-3 border-r border-gray-200">{index + 1}</td>
-                      <td className="px-4 py-3 border-r border-gray-200">{item.itemName}</td>
-                      <td className="px-4 py-3 border-r border-gray-200">{item.hsnCode}</td>
-                      <td className="px-4 py-3 text-center border-r border-gray-200">{item.quantity}</td>
-                      <td className="px-4 py-3 text-right border-r border-gray-200">
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border-r border-gray-200">{index + 1}</td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border-r border-gray-200">{item.itemName}</td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm border-r border-gray-200">{item.hsnCode}</td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-center border-r border-gray-200">{item.quantity}</td>
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right border-r border-gray-200">
                         ₹ {item.pricePerUnit.toFixed(2)}
                       </td>
-                      <td className="px-4 py-3 text-center border-r border-gray-200">
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-center border-r border-gray-200">
                         {item.gstRate.toFixed(0)}%
                       </td>
-                      <td className="px-4 py-3 text-right border-r border-gray-200">
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-right border-r border-gray-200">
                         {item.amount.toFixed(2)}
                       </td>
-                      <td className="px-4 py-3 text-center">
+                      <td className="px-2 sm:px-4 py-2 sm:py-3 text-center">
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="text-red-600 hover:text-red-800 font-medium text-sm"
+                          className="text-red-600 hover:text-red-800 font-medium text-xs sm:text-sm"
                         >
                           Remove
                         </button>
@@ -687,80 +688,80 @@ const InvoicePreview = React.forwardRef<HTMLDivElement, InvoicePreviewProps>(
 
           {/* Totals Section */}
           <div className="bg-pink-50 border-t-2 border-b-2 border-gray-800">
-            <div className="flex justify-between items-center px-6 py-4">
-              <div className="text-xl font-bold text-pink-700">Total</div>
-              <div className="flex space-x-8 items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-center px-3 sm:px-6 py-3 sm:py-4 gap-2">
+              <div className="text-lg sm:text-xl font-bold text-pink-700">Total</div>
+              <div className="flex flex-wrap justify-center gap-4 sm:space-x-8 items-center">
                 <div className="text-center">
-                  <div className="text-sm text-gray-600">Total Qty</div>
-                  <div className="font-bold">
+                  <div className="text-xs sm:text-sm text-gray-600">Total Qty</div>
+                  <div className="font-bold text-sm sm:text-base">
                     {invoiceData.items.reduce((sum, item) => sum + item.quantity, 0)}
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-gray-600">Sub Total</div>
-                  <div className="font-bold">{invoiceData.subTotal.toFixed(2)}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Sub Total</div>
+                  <div className="font-bold text-sm sm:text-base">{invoiceData.subTotal.toFixed(2)}</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-sm text-gray-600">Total Amount</div>
-                  <div className="font-bold text-xl">{invoiceData.total.toFixed(2)}</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Total Amount</div>
+                  <div className="font-bold text-base sm:text-xl">{invoiceData.total.toFixed(2)}</div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Amount in Words and GST Breakdown */}
-          <div className="flex border-b-2 border-gray-800">
+          <div className="flex flex-col md:flex-row border-b-2 border-gray-800">
             {/* Amount in Words */}
-            <div className="flex-1 p-6 border-r-2 border-gray-800">
-              <p className="font-semibold mb-2">Amount in words:</p>
-              <p className="text-sm">{numberToWords(invoiceData.total)}</p>
-              <div className="mt-6">
-                <p className="font-semibold">Terms & Conditions</p>
+            <div className="flex-1 p-3 sm:p-4 md:p-6 border-b-2 md:border-b-0 md:border-r-2 border-gray-800">
+              <p className="font-semibold mb-2 text-sm sm:text-base">Amount in words:</p>
+              <p className="text-xs sm:text-sm break-words">{numberToWords(invoiceData.total)}</p>
+              <div className="mt-4 sm:mt-6">
+                <p className="font-semibold text-sm sm:text-base">Terms & Conditions</p>
               </div>
             </div>
 
             {/* Totals Breakdown */}
-            <div className="w-80 bg-pink-50">
-              <div className="p-6 space-y-2">
-                <div className="flex justify-between items-center bg-pink-200 px-4 py-2 rounded">
-                  <span className="font-bold">Sub Total:</span>
-                  <span className="font-bold">{invoiceData.subTotal.toFixed(2)}</span>
+            <div className="w-full md:w-80 bg-pink-50">
+              <div className="p-3 sm:p-4 md:p-6 space-y-2">
+                <div className="flex justify-between items-center bg-pink-200 px-3 sm:px-4 py-2 rounded">
+                  <span className="font-bold text-xs sm:text-sm">Sub Total:</span>
+                  <span className="font-bold text-xs sm:text-sm">{invoiceData.subTotal.toFixed(2)}</span>
                 </div>
 
                 {isInterstate ? (
-                  <div className="flex justify-between px-4 py-1">
+                  <div className="flex justify-between px-3 sm:px-4 py-1 text-xs sm:text-sm">
                     <span>IGST</span>
                     <span>{invoiceData.igst?.toFixed(2) || '0.00'}</span>
                   </div>
                 ) : (
                   <>
-                    <div className="flex justify-between px-4 py-1">
+                    <div className="flex justify-between px-3 sm:px-4 py-1 text-xs sm:text-sm">
                       <span>SGST</span>
                       <span>{invoiceData.sgst.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between px-4 py-1">
+                    <div className="flex justify-between px-3 sm:px-4 py-1 text-xs sm:text-sm">
                       <span>CGST</span>
                       <span>{invoiceData.cgst.toFixed(2)}</span>
                     </div>
                   </>
                 )}
 
-                <div className="flex justify-between items-center px-4 py-2 font-bold border-t-2 border-gray-400">
+                <div className="flex justify-between items-center px-3 sm:px-4 py-2 font-bold border-t-2 border-gray-400 text-xs sm:text-sm">
                   <span>Total</span>
                   <span>{invoiceData.total.toFixed(2)}</span>
                 </div>
 
-                <div className="flex justify-between items-center px-4 py-1">
+                <div className="flex justify-between items-center px-3 sm:px-4 py-1 text-xs sm:text-sm">
                   <span>Payment Type</span>
                   <span className="font-semibold text-pink-600">{invoiceData.paymentType}</span>
                 </div>
 
-                <div className="flex justify-between items-center px-4 py-1">
+                <div className="flex justify-between items-center px-3 sm:px-4 py-1 text-xs sm:text-sm">
                   <span>Received</span>
                   <span>{invoiceData.amountReceived.toFixed(2)}</span>
                 </div>
 
-                <div className="flex justify-between items-center px-4 py-1 font-bold text-red-600">
+                <div className="flex justify-between items-center px-3 sm:px-4 py-1 font-bold text-red-600 text-xs sm:text-sm">
                   <span>Balance</span>
                   <span>{invoiceData.balance.toFixed(2)}</span>
                 </div>
